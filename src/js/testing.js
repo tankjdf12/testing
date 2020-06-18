@@ -38,5 +38,35 @@
             lname = patient.name[0].family.join(' ');
           }
           
+          var p = defaultPatient();
+          
           p.fname = fname;
           p.lname = lname;
+                    
+          ret.resolve(p);
+        });
+      } else {
+        onError();
+      }
+    }
+    
+    FHIR.oauth2.ready(onReady, onError);
+    return ret.promise();
+
+  };
+  
+    function defaultPatient(){
+    return {
+      fname: {value: ''},
+      lname: {value: ''},
+    };
+  }
+  window.drawVisualization = function(p) {
+    $('#holder').show();
+    $('#loading').hide();
+    $('#fname').html(p.fname);
+    $('#lname').html(p.lname);
+   
+  };
+
+})(window);
